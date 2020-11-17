@@ -7,9 +7,9 @@ const alertsContainer = document.querySelector('.alerts-container');
 let noteTitle = document.getElementById('note-title');
 let noteText = document.getElementById('note-text');
 
-const alert = (message) => {
+const alert = (message, className) => {
     const div = document.createElement('div');
-    div.classList = 'alert alert-danger';
+    div.classList = `alert alert-${className}`;
     div.appendChild(document.createTextNode(`${message}`));
     alertsContainer.appendChild(div);
     setTimeout(() => {
@@ -17,57 +17,85 @@ const alert = (message) => {
     }, 3000);
 }
 
-// Validacion de los inputs
-const titleValidation = function(){
-    if (noteTitle.value == null || noteTitle.value.trim() == '') {
-        alert('Debes colocar el TITULO de la nota');
-        return false;
-    } else {
-        return true;
+const get_notes = () => {
+    // Instanciamos el objeto XMLHttpRequest
+    const request = new XMLHttpRequest();
+    // Abrimos una conexion al archivo que nos devuelve la informacion de la base de datos
+    request.open('GET', 'php/read_data.php');
+
+    // Mediante la funcion onload ejecutamos una funcion por cada respuesta del servidor
+    request.onload = function(){
+        // Convertimos los datos obtenidos a un objeto JSON median JSON.parse
+        let data = JSON.parse(request.responseText);
+
+        // Cada objeto obtenido lo mostramos en pantalla mediante la funcion forEach
+        data.forEach(note => {
+            const element = document.createElement('div');
+            element.classList = 'note card border-primary mb-3 col-md-5 mr-3 align-self-start';
+            element.innerHTML = `
+                <div class="card-body">
+                    <h3 class="card-title">${note.title}</h3>
+                    <h6 class="text-muted card-subtitle mb-4">${note.date}</h6>
+                    <p class="text">${note.text}</p>
+                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-danger">Delete</button>
+                </div>
+            `;
+            noteContainer.appendChild(element);
+        });
     }
+
+    // Enviamos la peticion al servidor
+    request.send();
 }
 
-const textValidation = function(){
-    if (noteText.value == null || noteText.value.trim() == '') {
-        alert('Debes colocar el TEXTO de la nota');
-        return false;
-    } else {
-        return true;
-    }
-}
-
-const formValidation = function(){
-    titleValidation();
-    textValidation();
-    
-    return (titleValidation() && textValidation()) ? true : false;
-}
-
-// Trabajando con AJAX
-const addNote = function(e){
+const add_notes = (e) => {
     e.preventDefault();
 
+    // Instanciamos el objeto XMLHttpRequest
     const request = new XMLHttpRequest();
-    request.open('POST', 'php/save_note.php');
-    
-    let title = noteTitle.value.trim();
-    let note = noteText.value.trim();
-    
-    if (formValidation()) {
-        let params = `note-title=${title}&note-text=${note}`;
-    
-        request.setRequestHeader("Content-Type", "application/x-www-form-urlencode");
-    
-        request.onload = function(){
-            noteTitle.value = '';
-            noteText.value = '';
-            console.log('OK');
-        }
+    // Abrimos una conexion al archivo que nos devuelve la informacion de la base de datos
+    request.open('POST', 'php/add_data.php');
 
+    if (form_validate(noteTitle.value, noteText.value)) {
+        let params = `title=${noteTitle.value}&text=${noteText.value}`;
+
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        // 
+        request.onload = function(){
+            let response = JSON.parse(request.responseText);
+            
+            if (response.error) {
+                alert('No se pudo guardar la informacion', 'danger');
+            } else {
+                noteContainer.innerHTML = '';
+                get_notes();
+                alert('Nota agregada exitasamente', 'success');
+                noteTitle.value = '';
+                noteText.value = '';
+            }
+        }
+        
+        // Enviamos la peticion al servidor
         request.send(params);
+    } else {
+        alert('Completa los campos del formulario', 'warning');
     }
 }
 
-addNoteBtn.addEventListener('submit', function(e){
-    addNote(e);
+get_notes();
+
+addNoteBtn.addEventListener('click', function(e){
+    add_notes(e)
 })
+
+const form_validate = (title, text) => {
+    if(title == ''){
+        return false;
+    } else if(text == ''){
+        return false;
+    }
+
+    return true;
+}

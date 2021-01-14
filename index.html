@@ -10,25 +10,30 @@
 <body>
     <div class="alerts-container"></div>
     <div class="container mt-5">
-        <div class="row flex-column-reverse align-items-center">
-            <div class="col-md-10">
+        <div class="row flex-row">
+            <div class="col-md-6">
                 <h2 class="mb-4 pb-4 border-bottom">Notes</h2>
-                <div class="note-container d-flex flex-wrap justify-content-center" id="note-container">
+                <div class="note-container d-flex flex-column flex-wrap justify-content-center" id="note-container">
                     <!-- notes goes here -->
                 </div>
             </div>
 
-            <div class="col-md-6 mb-5">
+            <div class="col-md-6 mb-5"> 
                 <form action="" method="POST" id="note-form">
                     <div class="form-group">
-                        <label for="note-title">Tile</label>
+                        <label for="note-title">Title</label>
                         <input type="text" id="note-title" name="note-title" class="form-control" placeholder="My first note">
                     </div>
                     <div class="form-group">
                         <label for="">Note</label>
                         <textarea name="note-text" id="note-text" class="form-control" placeholder="Remember the eggs..."></textarea>
                     </div>
-                    <button type="submit" id="btn-addNote" class="btn btn-primary">ADD NOTE</button>
+                    <input type="hidden" id="tempId">
+                    <button type="submit" id="btn-addNote" class="btn btn-primary">Add note</button>
+                    <div class="edit-btn-wrapper hide">
+                        <button id="edit-btn" class="btn btn-success">Update</button>
+                        <button id="cancel-edit-btn" class="btn btn-danger">Cancel</button>                    
+                    </div>
                 </form>
             </div>
         </div>

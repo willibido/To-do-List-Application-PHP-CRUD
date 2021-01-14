@@ -1,18 +1,4 @@
-body {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
 
-.formulario {
-    width: 40%;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 100px;
-}
-
-.formulario textarea {
-    margin-bottom: 20px;
-    padding: 20px;
+.hide {
+    display: none;
 }

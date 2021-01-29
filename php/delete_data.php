@@ -5,7 +5,7 @@ header('Content-type: application/json; charset=utf-8');
 
 $id = $_POST['id'];
 
-$conexion = new mysqli('localhost', 'willicoder', 'ZApKer@m83', 'todo_list');
+$conexion = new mysqli('localhost', 'USER', 'PASS', 'todo_list');
 $conexion->set_charset('utf8');
 
 if ($conexion->connect_errno) {

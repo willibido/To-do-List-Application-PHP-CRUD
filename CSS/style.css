@@ -1,4 +1,29 @@
-
 .hide {
     display: none;
+}
+
+.hiden-btn {
+    visibility: hidden !important;
+}
+
+.note .card-body .btn {
+    opacity: 0;
+    transition: all .2s ease;
+}
+
+.note {
+    transition: all .2s ease;
+}
+
+.note:hover {
+    transform: translateX(-5px);
+}
+
+.note:hover .card-body .btn {
+    opacity: 1;
+}
+
+.note {
+    background-color: #fff1dd;
+    border-color: #d4a660 !important;
 }

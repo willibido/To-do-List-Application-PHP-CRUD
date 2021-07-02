@@ -48,6 +48,7 @@ const get_notes = () => {
                     <h3 class="card-title">${note.title}</h3>
                     <h6 class="text-muted card-subtitle mb-4">${note.date}</h6>
                     <p class="text">${note.text}</p>
+                    
                     <button class="btn btn-primary edit-note">Edit</button>
                     <button class="btn btn-danger delete-note">Delete</button>
                 </div>
@@ -191,13 +192,11 @@ addNoteBtn.addEventListener('click', function(e){
 
 updateBtn.addEventListener('click', function(e) {
     e.preventDefault();
-
     edit_note();
 })
 
 cancelUpdateBtn.addEventListener('click', function(e){
     e.preventDefault();
-    
     resetForm();
 })
 

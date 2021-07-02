@@ -19,7 +19,7 @@ function dates_format($fecha){
     return $fecha;
 }
 
-$conexion = new mysqli('localhost', 'USER', 'PASS', 'todo_list');
+$conexion = new mysqli('localhost', 'root', '', 'todo_list');
 
 if($conexion->connect_errno){   
     $response = ['error' => true];

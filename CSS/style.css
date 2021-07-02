@@ -11,10 +11,6 @@
     transition: all .2s ease;
 }
 
-.note {
-    transition: all .2s ease;
-}
-
 .note:hover {
     transform: translateX(-5px);
 }
@@ -24,6 +20,15 @@
 }
 
 .note {
+    transition: all .2s ease;
     background-color: #fff1dd;
     border-color: #d4a660 !important;
+    border-radius: 10px !important;
+}
+
+.edited-indicator {
+    position: absolute;
+    bottom: 0%;
+    left: 83%;
+    margin-bottom: 10px;
 }

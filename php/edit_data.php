@@ -14,6 +14,7 @@ function clean_data($data) {
 $id = $_POST['id'];
 $note_title = $_POST['title'];
 $note_text = $_POST['text'];
+$edited = 1;
 
 $note_title = clean_data($note_title);
 $note_text = clean_data($note_text);
@@ -37,8 +38,8 @@ if (info_validate($note_title, $note_text, $id)) {
     if ($conexion->connect_errno) {
         $response = ['error' => true, 'errorType' => 'Conexion'];
     } else {
-        $query = $conexion->prepare('UPDATE notes SET title = ?, text = ? WHERE id = ?');
-        $query->bind_param('ssi', $note_title, $note_text, $id);
+        $query = $conexion->prepare('UPDATE notes SET title = ?, text = ?, edited = ? WHERE id = ?');
+        $query->bind_param('ssii', $note_title, $note_text, $edited, $id);
         $query->execute();
     
         if ($conexion->affected_rows < 0) {

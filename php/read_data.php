@@ -19,7 +19,7 @@ function dates_format($fecha){
     return $fecha;
 }
 
-$conexion = new mysqli('localhost', 'USER', 'PASS', 'todo_list');
+$conexion = new mysqli('localhost', 'root', '', 'todo_list');
 
 if($conexion->connect_errno){   
     $response = ['error' => true];
@@ -36,7 +36,8 @@ if($conexion->connect_errno){
             'id'        => $row['id'],
             'title'     => $row['title'],
             'text'      => nl2br($row['text']),
-            'date'      => dates_format($row['date'])
+            'date'      => dates_format($row['date']),
+            'edited'    => $row['edited']
         ];
         array_push($response, $note);
     }

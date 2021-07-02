@@ -45,9 +45,14 @@ const get_notes = () => {
             element.innerHTML = `
                 <div class="card-body">
                     <input type="hidden" name="note_id" value="${note.id}">
-                    <h3 class="card-title">${note.title}</h3>
+
+                    <h3 class="card-title mb-4">${note.title}</h3>
+                    <span class="edited-indicator text-muted card-subtitle">
+                        ${ note.edited == 1 ? "✔ Editado" : ""}
+                    </span>
                     <h6 class="text-muted card-subtitle mb-4">${note.date}</h6>
                     <p class="text">${note.text}</p>
+                    
                     <button class="btn btn-primary edit-note">Edit</button>
                     <button class="btn btn-danger delete-note">Delete</button>
                 </div>
@@ -71,7 +76,7 @@ const get_notes = () => {
                 let parentElement = btn.parentElement;
 
                 let title = parentElement.firstChild.nextSibling.nextSibling.nextSibling;
-                let text = parentElement.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling;
+                let text = parentElement.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling;
 
                 if (btnWrapper.classList.contains("hide")) {
                     btnWrapper.classList.remove("hide");
@@ -82,6 +87,13 @@ const get_notes = () => {
                 noteText.value = text.textContent;
 
                 tempId.value = id.value;
+
+                deleteBtn.forEach(btn => {
+                    btn.classList.add('hiden-btn');
+                });
+                editBtn.forEach(btn => {
+                    btn.classList.add('hiden-btn');
+                });
             })
         });
     }
@@ -191,14 +203,19 @@ addNoteBtn.addEventListener('click', function(e){
 
 updateBtn.addEventListener('click', function(e) {
     e.preventDefault();
-
     edit_note();
 })
 
 cancelUpdateBtn.addEventListener('click', function(e){
     e.preventDefault();
-    
     resetForm();
+
+    document.querySelectorAll('.delete-note').forEach(btn => {
+        btn.classList.remove('hiden-btn');
+    });
+    document.querySelectorAll('.edit-note').forEach(btn => {
+        btn.classList.remove('hiden-btn');
+    });
 })
 
 const resetForm = () => {

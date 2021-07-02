@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/bootstrap/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/d68c519328.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="CSS/style.css">
     <title>NOTAS - PHP AND AJAX</title>
 </head>
@@ -12,12 +13,12 @@
     <div class="container mt-5">
         <div class="row flex-row">
             <div class="col-md-6">
-                <h2 class="mb-4 pb-4 border-bottom">Notes</h2>
+                <h2 class="mb-4 pb-4 border-bottom">Ajax Notes App</h2>
                 <div class="note-container d-flex flex-column flex-wrap justify-content-center" id="note-container">
                     <!-- notes goes here -->
                 </div>
             </div>
-
+            
             <div class="col-md-6 mb-5"> 
                 <form action="" method="POST" id="note-form">
                     <div class="form-group">
@@ -26,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="">Note</label>
-                        <textarea name="note-text" id="note-text" class="form-control" placeholder="Remember the eggs..."></textarea>
+                        <textarea name="note-text" id="note-text" class="form-control" style="height: 228px; max-height: 228;" placeholder="Remember the eggs..."></textarea>
                     </div>
                     <input type="hidden" id="tempId">
                     <button type="submit" id="btn-addNote" class="btn btn-primary">Add note</button>
@@ -40,7 +41,7 @@
     </div>
 
     <script src="CSS/bootstrap/js/jquery.min.js"></script>
-    <!-- <script src="CSS/bootstrap/js/popper.min.js"></script> -->
+    <script src="CSS/bootstrap/js/popper.min.js"></script>
     <script src="CSS/bootstrap/js/bootstrap.min.js"></script>
     <script src="JS/main.js"></script>
 </body>

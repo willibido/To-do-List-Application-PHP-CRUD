@@ -27,7 +27,7 @@ function info_validate($note_title, $note_text){
 }
 
 if (info_validate($note_title, $note_text)) {
-    $conexion = new mysqli('localhost', 'willicoder', 'ZApKer@m83', 'todo_list');
+    $conexion = new mysqli('localhost', 'root', '', 'todo_list');
     $conexion->set_charset('utf8');
 
     if ($conexion->connect_errno) {

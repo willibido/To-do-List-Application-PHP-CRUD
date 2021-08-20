@@ -37,7 +37,9 @@ if($conexion->connect_errno){
             'title'     => $row['title'],
             'text'      => nl2br($row['text']),
             'date'      => dates_format($row['date']),
-            'edited'    => $row['edited']
+            'edited'    => $row['edited'],
+            'bg_color'    => $row['bg_color'],
+            'border_color'    => $row['border_color'],
         ];
         array_push($response, $note);
     }

@@ -25,6 +25,27 @@ const alert = (message, className) => {
     }, 3000);
 }
 
+const noteColors = [
+    {
+        background: '#fff1dd',
+        border: '#d4a660'
+    },
+    {
+        background: '#CDEEF3',
+        border: '#44BCCE'
+    },
+    {
+        background: '#CDF3D8',
+        border: '#80BF92'
+    },
+    {
+        background: '#CDD5F3',
+        border: '#7D88B2'
+    }
+];
+
+let colorPosition = 0;
+
 document.getElementsByTagName('form')[0].reset();
 
 const get_notes = () => {
@@ -42,6 +63,8 @@ const get_notes = () => {
         data.forEach(note => {
             const element = document.createElement('div');
             element.classList = 'note card border-primary mb-3 col-md-12 mr-3 align-self-start';
+            element.style.background = `${note.bg_color} !important`;
+            element.style.borderColor = `${note.border_color} !impor` ;
             element.innerHTML = `
                 <div class="card-body">
                     <input type="hidden" name="note_id" value="${note.id}">
@@ -102,8 +125,37 @@ const get_notes = () => {
     request.send();
 }
 
-const add_notes = (e) => {
+const add_notes = (e, color) => {
     e.preventDefault();
+    let noteBG;
+    let borderColor;
+
+    console.log(color);
+
+    // Asignar colores
+    if (color == 0) {
+        noteBG = noteColors[0].background;
+        borderColor = noteColors[0].border;
+
+        console.log(noteBG, borderColor);
+    } else if (color == 1){
+        noteBG = noteColors[1].background;
+        borderColor = noteColors[1].border;
+
+        console.log(noteBG, borderColor);
+    } else if (color == 2){
+        noteBG = noteColors[2].background;
+        borderColor = noteColors[2].border;
+
+        console.log(noteBG, borderColor);
+    } else if (color == 3){
+        noteBG = noteColors[3].background;
+        borderColor = noteColors[3].border;
+
+        console.log(noteBG, borderColor);
+    } else if (color == 4) {
+        color = 0;
+    }
 
     // Instanciamos el objeto XMLHttpRequest
     const request = new XMLHttpRequest();
@@ -111,7 +163,7 @@ const add_notes = (e) => {
     request.open('POST', 'php/add_data.php');
 
     if (form_validate(noteTitle.value, noteText.value)) {
-        let params = `title=${noteTitle.value}&text=${noteText.value}`;
+        let params = `title=${noteTitle.value}&text=${noteText.value}&border=${borderColor}&background=${noteBG}`;
 
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         
@@ -158,11 +210,11 @@ const delete_note = (id) => {
     }
 
     request.send(params);
-    console.log(id);
+    // console.log(id);
 }
 
 const edit_note = () => {
-    console.log(tempId.value);
+    // console.log(tempId.value);
 
     // Instanciamos el objeto XMLHttpRequest
     const request = new XMLHttpRequest();
@@ -198,7 +250,10 @@ const edit_note = () => {
 get_notes();
 
 addNoteBtn.addEventListener('click', function(e){
-    add_notes(e);
+    colorPosition++;
+
+    add_notes(e, colorPosition);
+    console.log(colorPosition);
 })
 
 updateBtn.addEventListener('click', function(e) {

@@ -14,6 +14,9 @@ function clean_data($data) {
 $note_title = $_POST['title'];
 $note_text = $_POST['text'];
 
+$note_bgcolor = $_POST['background'];
+$note_bordercolor = $_POST['border'];
+
 $note_title = clean_data($note_title);
 $note_text = clean_data($note_text);
 
@@ -33,8 +36,8 @@ if (info_validate($note_title, $note_text)) {
     if ($conexion->connect_errno) {
         $response = ['error' => true, 'errorType' => 'Conexion'];
     } else {
-        $query = $conexion->prepare('INSERT INTO notes(title, text) VALUES(?,?)');
-        $query->bind_param('ss', $note_title, $note_text);
+        $query = $conexion->prepare('INSERT INTO notes(title, text, bg_color, border_color) VALUES(?,?,?,?)');
+        $query->bind_param('ssss', $note_title, $note_text, $note_bgcolor, $note_bordercolor);
         $query->execute();
     
         if ($conexion->affected_rows <= 0) {
